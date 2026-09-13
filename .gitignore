@@ -1,0 +1,59 @@
+# ==============================================================================
+# SafeVision AI — .gitignore
+# ==============================================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# --- Virtual Environment ---
+venv/
+.venv/
+env/
+
+# --- Environment / Secrets ---
+.env
+*.env.local
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Database ---
+*.sqlite3
+*.db
+
+# --- Evidence Storage (local uploads) ---
+evidence_storage/
+
+# --- Model Weights (large files, track via Git LFS or separate) ---
+# models/**/*.pt
+# Uncomment above if using Git LFS; keep tracked for now since they're small (~20MB each)
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Test / Coverage ---
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+
+# --- Docker ---
+docker-compose.override.yml

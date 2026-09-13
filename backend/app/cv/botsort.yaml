@@ -1,0 +1,28 @@
+# BoT-SORT Tracker Configuration for SafeVision AI
+# Based on Ultralytics 8.4.120 default botsort.yaml
+#
+# This file makes the tracker choice EXPLICIT rather than relying on defaults.
+#
+# track_id semantics:
+#   - Temporary per-camera-session integer assigned by BoT-SORT
+#   - Identifies a physical object within a single continuous tracking session
+#   - Resets on camera restart, tracker re-initialization, or prolonged occlusion
+#   - NEVER treated as persistent worker identity
+#   - Tracking key: (camera_id, track_id) within a session
+
+tracker_type: botsort
+track_high_thresh: 0.25
+track_low_thresh: 0.1
+new_track_thresh: 0.25
+track_buffer: 30
+match_thresh: 0.8
+fuse_score: true
+
+# BoT-SORT specifics
+gmc_method: sparseOptFlow
+
+# ReID model
+proximity_thresh: 0.5
+appearance_thresh: 0.8
+with_reid: false
+model: auto

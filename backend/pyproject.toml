@@ -1,0 +1,77 @@
+# ==============================================================================
+# SafeVision AI — Project Configuration
+# Covers: linting (ruff), testing (pytest), and project metadata.
+# ==============================================================================
+
+[project]
+name = "safevision-ai-backend"
+version = "0.1.0"
+description = "SafeVision AI — Multi-tenant industrial safety monitoring backend"
+requires-python = ">=3.10"
+
+# --- Ruff (Linter + Formatter) ---
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+src = ["app", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort (import sorting)
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "S",    # flake8-bandit (security)
+    "T20",  # flake8-print (no print statements in prod code)
+]
+ignore = [
+    "S101",  # Allow assert in tests
+    "S105",  # Allow hardcoded passwords in test/config defaults
+    "S106",  # Allow hardcoded passwords in function arguments (test factories)
+    "B008",  # Allow Depends() in function defaults (FastAPI pattern)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101", "S105", "S106", "S107", "T20"]
+"app/seeds/**/*.py" = ["T20", "S106"]
+"migrations/**/*.py" = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+# --- Pytest ---
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+    "--color=yes",
+]
+markers = [
+    "integration: marks tests that need a real database",
+    "slow: marks slow tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+# --- Coverage ---
+[tool.coverage.run]
+source = ["app"]
+omit = ["app/__init__.py", "migrations/*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 0
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__",
+    "if TYPE_CHECKING",
+]
